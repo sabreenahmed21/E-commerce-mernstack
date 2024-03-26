@@ -11,7 +11,6 @@ import { handleNotFound, errorHandler } from './controllers/errorControll.js';
 import { deleteUnverifiedAccounts } from './controllers/authController.js';
 import cron from 'node-cron';
 import userRout from './routs/userRout.js';
-import cookieParser from 'cookie-parser'
 import orderRout from './routs/orderRout.js'
 
 //* CONFIG
@@ -34,7 +33,6 @@ app.use(ExpressMongoSanitize());
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(express.static("public"));
-app.use(cookieParser())
 
 
 //* MONGO CONNECT
