@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home/Home.js";
 import SignUp from "./pages/Signin&up/Signup";
 import Login from "./pages/Signin&up/Login";
@@ -25,26 +25,26 @@ import UpdateAccount from "./pages/Profile/UpdateAccount.js";
 
 export default function App() {
   const [shouldShowHeader, setShouldShowHeader] = useState(true);
-  useEffect(() => {
-    const handleRouteChange = () => {
-      const excludedRoutes = [
-        "/login",
-        "/signup",
-        "/forgetPassword",
-        "/verifypassword",
-        "/resetpassword",
-        "/verify-email"
-      ];
-      const currentPath = window.location.pathname;
-      const shouldShow = !excludedRoutes.includes(currentPath);
-      setShouldShowHeader(shouldShow);
-    };
-    window.addEventListener("popstate", handleRouteChange);
-    handleRouteChange();
-    return () => {
-      window.removeEventListener("popstate", handleRouteChange);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const handleRouteChange = () => {
+  //     const excludedRoutes = [
+  //       "/login",
+  //       "/signup",
+  //       "/forgetPassword",
+  //       "/verifypassword",
+  //       "/resetpassword",
+  //       "/verify-email"
+  //     ];
+  //     const currentPath = window.location.pathname;
+  //     const shouldShow = !excludedRoutes.includes(currentPath);
+  //     setShouldShowHeader(shouldShow);
+  //   };
+  //   window.addEventListener("popstate", handleRouteChange);
+  //   handleRouteChange();
+  //   return () => {
+  //     window.removeEventListener("popstate", handleRouteChange);
+  //   };
+  // }, []);
 
   return (
     <>
