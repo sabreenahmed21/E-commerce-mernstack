@@ -25,26 +25,26 @@ import UpdateAccount from "./pages/Profile/UpdateAccount.js";
 
 export default function App() {
   const [shouldShowHeader, setShouldShowHeader] = useState(true);
-  // useEffect(() => {
-  //   const handleRouteChange = () => {
-  //     const excludedRoutes = [
-  //       "/login",
-  //       "/signup",
-  //       "/forgetPassword",
-  //       "/verifypassword",
-  //       "/resetpassword",
-  //       "/verify-email"
-  //     ];
-  //     const currentPath = window.location.pathname;
-  //     const shouldShow = !excludedRoutes.includes(currentPath);
-  //     setShouldShowHeader(shouldShow);
-  //   };
-  //   window.addEventListener("popstate", handleRouteChange);
-  //   handleRouteChange();
-  //   return () => {
-  //     window.removeEventListener("popstate", handleRouteChange);
-  //   };
-  // }, []);
+  useEffect(() => {
+    const handleRouteChange = () => {
+      const excludedRoutes = [
+        "/login",
+        "/signup",
+        "/forgetPassword",
+        "/verifypassword",
+        "/resetpassword",
+        "/verify-email"
+      ];
+      const currentPath = window.location.pathname;
+      const shouldShow = !excludedRoutes.includes(currentPath);
+      setShouldShowHeader(shouldShow);
+    };
+    window.addEventListener("popstate", handleRouteChange);
+    handleRouteChange();
+    return () => {
+      window.removeEventListener("popstate", handleRouteChange);
+    };
+  }, []);
 
   return (
     <>
