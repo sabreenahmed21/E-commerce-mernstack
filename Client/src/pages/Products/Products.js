@@ -120,163 +120,75 @@ export default function Products() {
         {!isLoading ? (
           data?.products.map((item, id) => {
             return (
-              <Link to={`/product/${item._id}`}>
-                <ProductCard item={item} id={id}/>
+              <Link
+                to={`/product/${item._id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <ProductCard item={item} id={id} />
               </Link>
             );
           })
         ) : (
           <>
-            <Card sx={{ maxWidth: { xs: 322 }, minWidth: { sm: 264 } }}>
-              <CardMedia
-                sx={{
-                  height: 200,
-                  width: "100%",
-                }}
-                className="skeleton"
-                image=""
-              />
-              <CardContent>
-                <Stack
-                  direction={"row"}
-                  alignItems={"center"}
-                  justifyContent={"space-between"}
-                >
-                  <Box className="skeleton" width={"40%"} height={"20px"}></Box>
-                  <Box className="skeleton" width={"20%"} height={"20px"}></Box>
-                </Stack>
-                <Box
+            <Stack
+              mt="32px"
+              direction={"row"}
+              justifyContent={{ xs: "center", sm: "left" }}
+              alignItems={"center"}
+              flexWrap={"wrap"}
+              gap={3}
+              sx={{
+                [theme.breakpoints.up("sm")]: {
+                  display: "grid",
+                  gridTemplateColumns: "repeat(2, 1fr)",
+                },
+                [theme.breakpoints.up("md")]: {
+                  display: "grid",
+                  gridTemplateColumns: "repeat(3, 1fr)",
+                },
+                [theme.breakpoints.up("lg")]: {
+                  display: "grid",
+                  gridTemplateColumns: "repeat(4, 1fr)",
+                },
+              }}
+            >
+              <Card sx={{ maxWidth: { xs: 322 }, minWidth: { xs: 255, sm: 264 }, height: '415px'}}>
+                <CardMedia
+                  sx={{
+                    height: 200,
+                    width: "100%",
+                  }}
                   className="skeleton"
-                  width={"100%"}
-                  height={"40px"}
-                  marginTop={"10px"}
-                ></Box>
-              </CardContent>
-              <CardActions sx={{ justifyContent: "space-between" }}>
-                <Box className="skeleton" width={"40%"} height={"30px"}></Box>
-                <Box className="skeleton" width={"40%"} height={"20px"}></Box>
-              </CardActions>
-            </Card>
-            <Card sx={{ maxWidth: { xs: 322 }, minWidth: { sm: 264 } }}>
-              <CardMedia
-                sx={{
-                  height: 200,
-                  width: "100%",
-                }}
-                className="skeleton"
-                image=""
-              />
-              <CardContent>
-                <Stack
-                  direction={"row"}
-                  alignItems={"center"}
-                  justifyContent={"space-between"}
-                >
-                  <Box className="skeleton" width={"40%"} height={"20px"}></Box>
-                  <Box className="skeleton" width={"20%"} height={"20px"}></Box>
-                </Stack>
-                <Box
-                  className="skeleton"
-                  width={"100%"}
-                  height={"40px"}
-                  marginTop={"10px"}
-                ></Box>
-              </CardContent>
-              <CardActions sx={{ justifyContent: "space-between" }}>
-                <Box className="skeleton" width={"40%"} height={"30px"}></Box>
-                <Box className="skeleton" width={"40%"} height={"20px"}></Box>
-              </CardActions>
-            </Card>
-            <Card sx={{ maxWidth: { xs: 322 }, minWidth: { sm: 264 } }}>
-              <CardMedia
-                sx={{
-                  height: 200,
-                  width: "100%",
-                }}
-                className="skeleton"
-                image=""
-              />
-              <CardContent>
-                <Stack
-                  direction={"row"}
-                  alignItems={"center"}
-                  justifyContent={"space-between"}
-                >
-                  <Box className="skeleton" width={"40%"} height={"20px"}></Box>
-                  <Box className="skeleton" width={"20%"} height={"20px"}></Box>
-                </Stack>
-                <Box
-                  className="skeleton"
-                  width={"100%"}
-                  height={"40px"}
-                  marginTop={"10px"}
-                ></Box>
-              </CardContent>
-              <CardActions sx={{ justifyContent: "space-between" }}>
-                <Box className="skeleton" width={"40%"} height={"30px"}></Box>
-                <Box className="skeleton" width={"40%"} height={"20px"}></Box>
-              </CardActions>
-            </Card>
-            <Card sx={{ maxWidth: { xs: 322 }, minWidth: { sm: 264 } }}>
-              <CardMedia
-                sx={{
-                  height: 200,
-                  width: "100%",
-                }}
-                className="skeleton"
-                image=""
-              />
-              <CardContent>
-                <Stack
-                  direction={"row"}
-                  alignItems={"center"}
-                  justifyContent={"space-between"}
-                >
-                  <Box className="skeleton" width={"40%"} height={"20px"}></Box>
-                  <Box className="skeleton" width={"20%"} height={"20px"}></Box>
-                </Stack>
-                <Box
-                  className="skeleton"
-                  width={"100%"}
-                  height={"40px"}
-                  marginTop={"10px"}
-                ></Box>
-              </CardContent>
-              <CardActions sx={{ justifyContent: "space-between" }}>
-                <Box className="skeleton" width={"40%"} height={"30px"}></Box>
-                <Box className="skeleton" width={"40%"} height={"20px"}></Box>
-              </CardActions>
-            </Card>
-            <Card sx={{ maxWidth: { xs: 322 }, minWidth: { sm: 264 } }}>
-              <CardMedia
-                sx={{
-                  height: 200,
-                  width: "100%",
-                }}
-                className="skeleton"
-                image=""
-              />
-              <CardContent>
-                <Stack
-                  direction={"row"}
-                  alignItems={"center"}
-                  justifyContent={"space-between"}
-                >
-                  <Box className="skeleton" width={"40%"} height={"20px"}></Box>
-                  <Box className="skeleton" width={"20%"} height={"20px"}></Box>
-                </Stack>
-                <Box
-                  className="skeleton"
-                  width={"100%"}
-                  height={"40px"}
-                  marginTop={"10px"}
-                ></Box>
-              </CardContent>
-              <CardActions sx={{ justifyContent: "space-between" }}>
-                <Box className="skeleton" width={"40%"} height={"30px"}></Box>
-                <Box className="skeleton" width={"40%"} height={"20px"}></Box>
-              </CardActions>
-            </Card>
+                  image=""
+                />
+                <CardContent>
+                  <Stack
+                    alignItems={"center"}
+                    justifyContent={"space-between"}
+                  >
+                    <Box
+                      className="skeleton"
+                      width={"40%"}
+                      height={"20px"}
+                    ></Box>
+                    <Box
+                      className="skeleton"
+                      width={"70%"}
+                      height={"40px"}
+                    ></Box>
+                  </Stack>
+                  <Box
+                    className="skeleton"
+                    width={"50%"}
+                    height={"20px"}
+                    marginTop={"10px"}
+                  ></Box>
+                </CardContent>
+                <CardActions sx={{ justifyContent: "center" , p:2}}>
+                  <Box className="skeleton" height={"20px"} sx={{width: '-webkit-fill-available'}}></Box>
+                </CardActions>
+              </Card>
+            </Stack>
           </>
         )}
         {isError && <Box>{error.message}</Box>}

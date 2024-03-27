@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useGetproductByNameQuery } from "../../services/Jsonserverapi";
-import { Box, Pagination, Slider, Stack, Typography, useTheme } from "@mui/material";
+import {
+  Box,
+  Pagination,
+  Slider,
+  Stack,
+  Typography,
+  useTheme,
+} from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import ProductCard from "../../pages/Products/ProductCard";
 
@@ -9,10 +16,10 @@ export default function SearchResults() {
   const [currentPage, setCurrentPage] = useState(1);
   const [price, setPrice] = useState([0, 2000]);
   const { data, isLoading, isError } = useGetproductByNameQuery(
-    `products?keyword=${query}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`
+    `products?keyword=${query}&page=${currentPage}}`
   );
   const [totalPages, setTotalPages] = useState(1);
-console.log(data);
+  console.log(data);
   useEffect(() => {
     if (data && data.totalProductsCount && data.resultPerPage) {
       const pages = Math.ceil(data.totalProductsCount / data.resultPerPage);
@@ -28,7 +35,7 @@ console.log(data);
 
   const handlePriceRangeChange = (event, priceRange) => {
     setPrice(priceRange);
-  }
+  };
 
   return (
     <>
@@ -84,13 +91,15 @@ console.log(data);
                   onChange={handlePageChange}
                 />
               )}
-              <Box sx={{width:'300px'}}>
-                <Typography variant="body1" color="initial">price</Typography>
-                <Slider 
-                getAriaLabel={() => 'price range'}
-                value={price}
-                onChange={handlePriceRangeChange}
-                valueLabelDisplay="auto"
+              <Box sx={{ width: "300px" }}>
+                <Typography variant="body1" color="initial">
+                  price
+                </Typography>
+                <Slider
+                  getAriaLabel={() => "price range"}
+                  value={price}
+                  onChange={handlePriceRangeChange}
+                  valueLabelDisplay="auto"
                 />
               </Box>
             </>

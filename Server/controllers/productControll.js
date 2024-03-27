@@ -14,21 +14,21 @@ export const createProduct = asyncWrapper(async (req, res, next) => {
   });
 });
 
-
 //getAllProducts
 export const getAllProducts = asyncWrapper(async (req, res, next) => {
-
   const resultPerPage = 5;
 
+  // Create a separate query to count all documents based on search criteria
   const countQuery = Product.find({}, { "-v": false });
   const featuresForCount = new apiFeatures(countQuery, req.query)
     .search()
     .filter()
     .sort()
     .limitFields();
-
+  // Execute the count query to get the total count of products
   const totalProductsCount = await countQuery.countDocuments();
 
+  // Create a new query for pagination
   const paginationQuery = Product.find({}, { "-v": false });
   const featuresForPagination = new apiFeatures(paginationQuery, req.query)
     .search()
@@ -36,10 +36,13 @@ export const getAllProducts = asyncWrapper(async (req, res, next) => {
     .sort()
     .paginate(resultPerPage) 
     .limitFields();
+
   const products = await featuresForPagination.query;
+
   if (!products) {
     return next(new appError("No products found", 404));
   }
+
   res.status(200).json({
     state: httpStatusText.SUCCESS,
     products,

@@ -115,11 +115,6 @@ export default function Forgotpassword() {
                 Send reset code
               </Button>
             </form>
-            {isLoading && (
-              <Typography variant="body1" color="initial" mt={2} align="center">
-                Loading...
-              </Typography>
-            )}
             <Link
               to="/login"
               style={{

@@ -41,35 +41,6 @@ const ResetPassword = () => {
         setTokenValid(false);
       });
   };
-
-  // const handleResetPassword = async ({ password, passwordConfirm }) => {
-  //   try {
-  //     await axios.patch(
-  //       `${process.env.REACT_APP_URL}/api/resetpassword/${token}`,
-  //       {
-  //         password,
-  //         passwordConfirm,
-  //       },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //       }
-  //     );
-  //     Swal.fire({
-  //       icon: "success",
-  //       title: "Password Reset",
-  //       text: "Password reset successfully 💕",
-  //       timer: 3000,
-  //       showConfirmButton: false,
-  //     });
-  //     navigate("/login");
-  //   } catch (error) {
-  //     console.log(error);
-  //     setTokenValid(false);
-  //   }
-  // };
-
   const {
     register,
     formState: { errors },
@@ -150,7 +121,6 @@ const ResetPassword = () => {
                   {errors.passwordConfirm?.message}
                 </Typography>
               </Box>
-
               <Button
                 type="submit"
                 variant="contained"
@@ -168,11 +138,6 @@ const ResetPassword = () => {
               </Button>
             </form>
           </Box>
-          {isLoading && (
-            <Typography variant="body1" color="initial" mt={2} align="center">
-              Loading...
-            </Typography>
-          )}
         </Box>
       </Container>
     </>

@@ -116,11 +116,6 @@ const Verifypassword = () => {
                 Continue
               </Button>
             </form>
-            {isLoading && (
-              <Typography variant="body1" color="initial" mt={2} align="center">
-                Loading...
-              </Typography>
-            )}
           </Box>
         </Box>
       </Container>
