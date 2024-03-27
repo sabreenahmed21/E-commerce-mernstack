@@ -1,17 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { useGetproductByNameQuery } from "../../services/Jsonserverapi";
-import { Box, Pagination, Stack, Typography, useTheme } from "@mui/material";
+import { Box, Pagination, Slider, Stack, Typography, useTheme } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import ProductCard from "../../pages/Products/ProductCard";
 
 export default function SearchResults() {
   const { query } = useParams();
   const [currentPage, setCurrentPage] = useState(1);
+  const [price, setPrice] = useState([0, 2000]);
   const { data, isLoading, isError } = useGetproductByNameQuery(
-    `products?keyword=${query}&page=${currentPage}`
+    `products?keyword=${query}&page=${currentPage}&price[gte]=${price[0]}&price[lte]=${price[1]}`
   );
   const [totalPages, setTotalPages] = useState(1);
-
+console.log(data);
   useEffect(() => {
     if (data && data.totalProductsCount && data.resultPerPage) {
       const pages = Math.ceil(data.totalProductsCount / data.resultPerPage);
@@ -24,6 +25,10 @@ export default function SearchResults() {
   const handlePageChange = (event, page) => {
     setCurrentPage(page);
   };
+
+  const handlePriceRangeChange = (event, priceRange) => {
+    setPrice(priceRange);
+  }
 
   return (
     <>
@@ -79,6 +84,15 @@ export default function SearchResults() {
                   onChange={handlePageChange}
                 />
               )}
+              <Box sx={{width:'300px'}}>
+                <Typography variant="body1" color="initial">price</Typography>
+                <Slider 
+                getAriaLabel={() => 'price range'}
+                value={price}
+                onChange={handlePriceRangeChange}
+                valueLabelDisplay="auto"
+                />
+              </Box>
             </>
           ) : (
             <>

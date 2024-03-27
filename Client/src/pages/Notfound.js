@@ -44,7 +44,7 @@ export default function Notfound() {
             display: "flex",
             justifyContent: "center",
           }}
-          onClick={() => navigate("/")}
+          onClick={() => window.location.pathname = "/"}
         >
           Go to home
         </Button>

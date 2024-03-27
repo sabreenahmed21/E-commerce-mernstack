@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../Redux/UserSlice";
+import { logout, selectCurrentUser } from "../../Redux/UserSlice";
 import {
   Box,
   Button,
@@ -15,8 +15,10 @@ import { MdArrowDropDown, MdOutlineArrowDropUp } from "react-icons/md";
 
 function Profile() {
   const navigate = useNavigate();
-  const { currentUser } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const currentUser = useSelector(selectCurrentUser);
+
+
   const handlelogout = () => {
     dispatch(logout());
     navigate("/");
@@ -32,9 +34,11 @@ function Profile() {
     setOpen(!open);
   };
   const handleSignInClick = (event) => {
-    event.preventDefault(); // Prevent default behavior of link
-    window.location.pathname = "/login"; // Manually update the pathname
+    event.preventDefault(); 
+    window.location.pathname = "/login"; 
   };
+
+
   return (
     <>
       {currentUser ? (

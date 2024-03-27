@@ -25,7 +25,7 @@ const createSendToken = (user, statusCode, res) => {
   }
   res.cookie("jwt", token, cookieOptions);
   res.status(statusCode).json({
-    state: httpStatusText.SUCCESS,
+    statusText: httpStatusText.SUCCESS,
     token,
     data: { user },
   });
@@ -152,13 +152,13 @@ export const verifyEmail = asyncWrapper(async (req, res, next) => {
   });
 
   if (!user) {
-    return res.status(400).json({ message : "Invalid verification code." });
+    return res.status(400).json({ message: "Invalid verification code." });
   }
   // Check if the verification code has expired
   const verificationCodeExpirationTime = 10 * 60 * 1000; // 10 minutes
   const currentTime = new Date().getTime();
   if (user.createdAt.getTime() + verificationCodeExpirationTime < currentTime) {
-    return res.status(400).json({ error : "Verification code has expired." });
+    return res.status(400).json({ error: "Verification code has expired." });
   }
   user.verified = true;
   user.verificationCode = null;
@@ -173,20 +173,32 @@ export const login = asyncWrapper(async (req, res, next) => {
       new appError(
         "Please provide your Email and Password",
         400,
-        httpStatusText.FAIL
+        httpStatusText.ERROR
       )
     );
   }
   const user = await UserModel.findOne({ email }).select("+password");
   if (!user) {
-    return next(new appError("User not found", 401, httpStatusText.FAIL));
+    return next(
+      new appError(
+        "Email not found. Please check your email and try again.",
+        401,
+        httpStatusText.ERROR
+      )
+    );
   }
   if (!user.verified) {
-    return next(new appError("User not verified", 401, httpStatusText.FAIL));
+    return next(
+      new appError(
+        "Email not verified. Please verify your email and try again.",
+        401,
+        httpStatusText.ERROR
+      )
+    );
   }
   const correct = await user.correctPassword(password, user.password);
   if (!correct) {
-    return next(new appError("Incorrect password", 401, httpStatusText.FAIL));
+    return next(new appError("Incorrect password", 401, httpStatusText.ERROR));
   }
   createSendToken(user, 200, res);
 });
@@ -306,7 +318,7 @@ export const verifyCode = asyncWrapper(async (req, res, next) => {
     );
   }
   res.status(200).json({
-    status: httpStatusText.SUCCESS,
+    statusText: httpStatusText.SUCCESS,
     message: "Verification code is valid",
     data: code,
   });
@@ -314,7 +326,7 @@ export const verifyCode = asyncWrapper(async (req, res, next) => {
 
 export const deleteUnverifiedAccounts = async () => {
   try {
-    const verificationCodeExpirationTime = 9 * 60 * 1000;
+    const verificationCodeExpirationTime = 10 * 60 * 1000;
     const currentTime = new Date().getTime();
     const unverifiedAccounts = await UserModel.find({
       verified: false,
@@ -337,26 +349,26 @@ export const logout = asyncWrapper(async (req, res, next) => {
   req.cookie("token", null, {
     expires: new Date(Date.now()),
     httpOnly: true,
-  })
+  });
   res.status(200).json({
     status: httpStatusText.SUCCESS,
-    message: "Logged out successfully"
+    message: "Logged out successfully",
   });
 });
 
 export const authorizeRoles = (...roles) => {
   return (req, res, next) => {
     if (!roles.includes(req.user.role)) {
-      return next (new appError(`Role: ${req.user.role} is not allowed to access this resource`, 403))
+      return next(
+        new appError(
+          `Role: ${req.user.role} is not allowed to access this resource`,
+          403
+        )
+      );
     }
     next();
-  }
-}
+  };
+};
 
 // export const profilePhotoUpload = asyncWrapper( async (req, res, next) => {
 // })
-
-
-
-
-

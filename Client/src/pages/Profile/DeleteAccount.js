@@ -6,18 +6,18 @@ import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Box, Container, Typography, useTheme } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../../Redux/UserSlice";
+import { logout, selectCurrentUser } from "../../Redux/UserSlice";
 import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import logo from "../../assets/logo.png";
 import { red } from "@mui/material/colors";
-//import { useDeleteAccountMutation } from "../../services/Jsonserverapi";
 
 const DeleteAccount = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const theme = useTheme();
-  const { currentUser } = useSelector((state) => state.user);
+
+  const currentUser = useSelector(selectCurrentUser);
   const accessToken = currentUser?.token;
 
   const {
@@ -30,28 +30,6 @@ const DeleteAccount = () => {
   const clearErrorMessage = () => {
     setErrorMessage("");
   };
-
-  // const [deleteAccount] = useDeleteAccountMutation(accessToken);
-  // const onSubmit = async (currentPassword) => {
-  //   const res = await deleteAccount(currentPassword)
-  //     .unwrap()
-  //     .then(() => {
-  //       Swal.fire({
-  //         icon: "success",
-  //         title: "Account deleted successfully!",
-  //         timer: 3000,
-  //         showConfirmButton: false,
-  //       });
-  //       console.log(res);
-  //       dispatch(logout());
-  //       navigate("/home");
-  //       console.log(res);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //       setErrorMessage(error.data.message);
-  //     });
-  // };
 
   const onSubmit = async (currentPassword) => {
     try {
@@ -67,12 +45,12 @@ const DeleteAccount = () => {
       );
       Swal.fire({
         icon: "success",
-        title: "Account deleted successfully!",
+        title: `${res.data.message}`,
         timer: 3000,
         showConfirmButton: false,
       });
       dispatch(logout());
-      navigate("/home");
+      navigate("/");
       console.log(res);
     } catch (error) {
       setErrorMessage(error.response.data.message);
